@@ -11,20 +11,19 @@
 <custom-element-demo>
   <template>
     <link rel="import" href="b7-carousel.html">
+
+    <b7-carousel>
+        <img src="http://placekitten.com/g/640/480"/>
+        <img src="http://placekitten.com/g/480/640"/>
+        <img src="http://placekitten.com/g/600/640"/>
+        <img src="http://placekitten.com/g/300/400"/>
+        <img src="http://placekitten.com/g/200/400"/>
+        <img src="http://placekitten.com/g/500/200"/>
+    </b7-carousel>
   </template>
 </custom-element-demo>
 ```
 -->
-```html
-<b7-carousel>
-    <img src="http://placekitten.com/g/640/480"/>
-    <img src="http://placekitten.com/g/480/640"/>
-    <img src="http://placekitten.com/g/600/640"/>
-    <img src="http://placekitten.com/g/300/400"/>
-    <img src="http://placekitten.com/g/200/400"/>
-    <img src="http://placekitten.com/g/500/200"/>
-</b7-carousel>
-```
 
 # Developing guide
 ## Install the Polymer-CLI
