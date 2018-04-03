@@ -6,24 +6,33 @@
 [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Browser_compatibility)
 
 # Demo
-<!--
+<!---
 ```
 <custom-element-demo>
   <template>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="b7-carousel.html">
-
-    <b7-carousel style="height: 10em">
-        <img src="http://placekitten.com/g/640/480"/>
-        <img src="http://placekitten.com/g/480/640"/>
-        <img src="http://placekitten.com/g/600/640"/>
-        <img src="http://placekitten.com/g/300/400"/>
-        <img src="http://placekitten.com/g/200/400"/>
-        <img src="http://placekitten.com/g/500/200"/>
-    </b7-carousel>
+    <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
 -->
+```html
+<b7-carousel style="height: 10em">
+    <img src="http://placekitten.com/g/640/480">
+    <img src="http://placekitten.com/g/480/640">
+    <img src="http://placekitten.com/g/600/640">
+    <img src="http://placekitten.com/g/300/400">
+    <img src="http://placekitten.com/g/200/400">
+    <img src="http://placekitten.com/g/500/200">
+    <img src="http://placekitten.com/g/640/480">
+    <img src="http://placekitten.com/g/480/640">
+    <img src="http://placekitten.com/g/600/640">
+    <img src="http://placekitten.com/g/300/400">
+    <img src="http://placekitten.com/g/200/400">
+    <img src="http://placekitten.com/g/500/200">
+</b7-carousel>
+```
 
 # Developing guide
 ## Install the Polymer-CLI
