@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>b7-gallery demo</title>
+    <title>b7-carousel demo</title>
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../b7-gallery.html">
+    <link rel="import" href="../b7-carousel.html">
 
     <custom-style>
       <style is="custom-style" include="demo-pages-shared-styles">
@@ -19,22 +19,71 @@
   </head>
   <body>
     <div class="vertical-section-container centered">
-      <h3>Basic b7-gallery demo</h3>
+      <h3>Basic b7-carousel demo</h3>
       <demo-snippet>
         <template>
-          <b7-gallery style="height: 10em">
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-            <img src="http://placekitten.com/g/640/480"/>
-          </b7-gallery>
+          <style>
+            b7-carousel > * {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              margin: 0 1em;
+            }
+            b7-carousel > * img {
+              height: 5em;
+            }
+          </style>
+          <b7-carousel style="height: 10em">
+              <div>
+                <img src="http://placekitten.com/g/640/480"/>
+                <h1>640x480</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/480/640"/>
+                <h1>480x640</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/600/640"/>
+                <h1>600x640</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/300/400"/>
+                <h1>300x400</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/200/400"/>
+                <h1>200x400</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/500/200"/>
+                <h1>500x200</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/640/480"/>
+                <h1>640x480</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/480/640"/>
+                <h1>480x640</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/600/640"/>
+                <h1>600x640</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/300/400"/>
+                <h1>300x400</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/200/400"/>
+                <h1>200x400</h1>
+              </div>
+              <div>
+                <img src="http://placekitten.com/g/500/200"/>
+                <h1>500x200</h1>
+              </div>
+          </b7-carousel>
         </template>
       </demo-snippet>
     </div>

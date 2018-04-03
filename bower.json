@@ -1,6 +1,6 @@
 {
-  "name": "b7-gallery",
-  "main": "b7-gallery.html",
+  "name": "b7-carousel",
+  "main": "b7-carousel.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "iron-flex-layout": "^2.0.3"

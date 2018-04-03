@@ -1,0 +1,147 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+
+<dom-module id="b7-carousel">
+	<template>
+		<style is="custom-style" include="iron-flex iron-flex-alignment">
+			:host {
+				@apply --layout-horizontal;
+			}
+			::-webkit-scrollbar { 
+					display: none; 
+			}
+			#track {
+				overflow-x: scroll;
+				align-items: center;
+				justify-content: space-between;  
+			}
+			#content::slotted(*) {
+				max-height: 100%;
+				max-width: 100%;
+				opacity: 0;
+				transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1) opacity;
+			}
+			#content::slotted(.b7-visible) {
+				opacity: 1;
+			}
+		</style>
+		<slot name="prev" on-click="_prev">
+			<button>L</button>
+		</slot>
+		<div id="track" class="flex layout horizontal">
+			<slot id="content"></slot>
+		</div>
+		<slot name="next" on-click="_next">
+			<button>R</button>
+		</slot>
+	</template>
+
+	<script>
+		'use strict';
+		/**
+		 * `b7-carousel`
+		 * 
+		 *
+		 * @customElement
+		 * @polymer
+		 * @demo demo/index.html
+		 */
+		class B7Gallery extends Polymer.Element {
+			static get is() { return 'b7-carousel'; }
+			static get properties() {
+				return {
+					current: {
+						type: Number
+					},
+					trackAlignmentTimeOut: {
+						type: Number,
+						value: 0.1
+					}
+				};
+			}
+
+			constructor()
+			{
+				super();
+				this._scrollOptions = {
+					behavior: "smooth",
+					block: "center",
+					inline: "start"
+				};
+			}
+
+			connectedCallback()
+			{
+				super.connectedCallback();
+				this.current = 0;
+
+				// Intersection Observers
+				this._observer = new IntersectionObserver(
+					(entries) => {
+						entries.forEach(entry => {
+							if (entry.intersectionRatio > 0.5)
+								entry.target.classList.add('b7-visible');
+							else
+								entry.target.classList.remove('b7-visible');
+						})
+					},
+					{
+						root: this.$.track,
+						rootMargin: "0px",
+						threshold: [0.5]
+					}
+				);
+				
+				this.$.content.assignedElements().forEach(element => this._observer.observe(element));
+
+
+				// Setup isScrolling variable
+				let isScrolling;
+
+				// Listen for scroll events
+				this.$.track.addEventListener('scroll', event => {
+
+					// Clear our timeout throughout the scroll
+					clearTimeout( isScrolling );
+
+					// Set a timeout to run after scrolling ends
+					isScrolling = setTimeout( _ => {
+
+						// Run the callback
+						console.log( 'Scrolling has stopped.' );
+
+						let pivotElement = this.$.content.assignedElements().filter(element => element.classList.contains('b7-visible'))[0];
+
+						if (pivotElement) {
+							//this.$.track.scrollLeft = pivotElement.offsetLeft;
+							pivotElement.scrollIntoView(this._scrollOptions);
+						}
+
+					}, this.trackAlignmentTimeOut * 1000);
+
+				}, false);
+			}
+
+			_next()
+			{
+				let pivotElement = this.$.content.assignedElements().filter(element => element.classList.contains('b7-visible'))[0];
+
+				if (pivotElement.nextElementSibling) {
+					//this.$.track.scrollLeft = pivotElement.nextElementSibling.offsetLeft;
+					pivotElement.nextElementSibling.scrollIntoView(this._scrollOptions);
+				}
+			}
+
+			_prev()
+			{
+				let pivotElement = this.$.content.assignedElements().filter(element => element.classList.contains('b7-visible'))[0];
+				if (pivotElement.previousElementSibling) {
+					//this.$.track.scrollLeft = pivotElement.previousElementSibling.offsetLeft;
+					pivotElement.previousElementSibling.scrollIntoView(this._scrollOptions);
+				}
+			}
+		}
+
+		window.customElements.define(B7Gallery.is, B7Gallery);
+	</script>
+</dom-module>
