@@ -1,11 +1,11 @@
 <link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="b7-carousel">
 	<template>
 		<style is="custom-style" include="iron-flex iron-flex-alignment">
 			:host {
-				@apply --layout-horizontal;
+				display: flex;
+				flex-direction: row;
 			}
 			::-webkit-scrollbar { 
 					display: none; 
@@ -14,12 +14,15 @@
 				overflow-x: scroll;
 				align-items: center;
 				justify-content: space-between;  
+				flex: 1 1 auto;
+				display: flex;
+				flex-direction: row;
 			}
 			#content::slotted(*) {
 				max-height: 100%;
 				max-width: 100%;
 				opacity: 0;
-				transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1) opacity;
+				transition: 2s cubic-bezier(0.075, 0.82, 0.165, 1) opacity;
 			}
 			#content::slotted(.b7-visible) {
 				opacity: 1;
@@ -28,7 +31,7 @@
 		<slot name="prev" on-click="_prev">
 			<button>L</button>
 		</slot>
-		<div id="track" class="flex layout horizontal">
+		<div id="track">
 			<slot id="content"></slot>
 		</div>
 		<slot name="next" on-click="_next">

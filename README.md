@@ -12,7 +12,7 @@
   <template>
     <link rel="import" href="b7-carousel.html">
 
-    <b7-carousel>
+    <b7-carousel style="height: 10em">
         <img src="http://placekitten.com/g/640/480"/>
         <img src="http://placekitten.com/g/480/640"/>
         <img src="http://placekitten.com/g/600/640"/>
