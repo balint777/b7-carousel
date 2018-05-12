@@ -62,8 +62,8 @@ The element features
 ```html
 <style>
 	/**
-		* Just a custom chevron
-		*/
+	 * Just a custom chevron
+	 */
 	b7-carousel#customized .chevron {
 		display: flex;
 		flex-direction: column;
@@ -80,14 +80,14 @@ The element features
 	}
 	
 	/**
-		* The b7-carousel does not make any assumptions on the size, the
-		* type nor the number of items in the carousel, so you are free to
-		* style and compose them.
-		* There are a couble of things though you can not style. These
-		* values are explicitly controlled by b7-carousel
-		* - max-height
-		* - max-width
-		*/
+	 * The b7-carousel does not make any assumptions on the size, the
+	 * type nor the number of items in the carousel, so you are free to
+	 * style and compose them.
+	 * There are a couble of things though you can not style. These
+	 * values are explicitly controlled by b7-carousel
+	 * - max-height
+	 * - max-width
+	 */
 	b7-carousel#customized > .item {
 		margin: 0 1em;
 		box-shadow: 0 .1em 1.5em rgba(0,0,0,0.2);
@@ -102,10 +102,10 @@ The element features
 	}
 
 	/**
-		* Child elements of b7-carousel will receive a b7-visible class
-		* whenever they are visible on the sceen. You can use this property
-		* to create an enry-exit animation for your carousel items
-		*/
+	 * Child elements of b7-carousel will receive a b7-visible class
+	 * whenever they are visible on the sceen. You can use this property
+	 * to create an enry-exit animation for your carousel items
+	 */
 	b7-carousel#customized > .item {
 		opacity: 0;
 		transform: perspective(10px) translateZ(-10px);
