@@ -1,5 +1,4 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg?style=flat-square)](https://www.webcomponents.org/element/balint777/b7-carousel)
-  
 [![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg?style=flat-square)](https://vaadin.com/directory/component/balint777b7-carousel)
 [![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/balint777b7-carousel.svg?style=flat-square)](https://vaadin.com/directory/component/balint777b7-carousel)
 
