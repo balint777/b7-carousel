@@ -6,10 +6,10 @@
 
     <title>b7-carousel test</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+    <script src="@webcomponents/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../b7-carousel.html">
+    <script type="module" src="../b7-carousel.js"></script>
   </head>
   <body>
 
@@ -25,28 +25,29 @@
       </template>
     </test-fixture>
 
-    <script>
-      suite('b7-carousel', () => {
+    <script type="module">
+import '../b7-carousel.js';
+suite('b7-carousel', () => {
 
-        test('instantiating the element with default properties works', () => {
-          const element = fixture('BasicTestFixture');
-          assert.equal(element.prop1, 'b7-carousel');
-          const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello b7-carousel!');
-        });
+  test('instantiating the element with default properties works', () => {
+    const element = fixture('BasicTestFixture');
+    assert.equal(element.prop1, 'b7-carousel');
+    const elementShadowRoot = element.shadowRoot;
+    const elementHeader = elementShadowRoot.querySelector('h2');
+    assert.equal(elementHeader.innerHTML, 'Hello b7-carousel!');
+  });
 
-        test('setting a property on the element works', () => {
-          // Create a test fixture
-          const element = fixture('ChangedPropertyTestFixture');
-          assert.equal(element.prop1, 'new-prop1');
-          const elementShadowRoot = element.shadowRoot;
-          const elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
-        });
+  test('setting a property on the element works', () => {
+    // Create a test fixture
+    const element = fixture('ChangedPropertyTestFixture');
+    assert.equal(element.prop1, 'new-prop1');
+    const elementShadowRoot = element.shadowRoot;
+    const elementHeader = elementShadowRoot.querySelector('h2');
+    assert.equal(elementHeader.innerHTML, 'Hello new-prop1!');
+  });
 
-      });
-    </script>
+});
+</script>
 
   </body>
 </html>
