@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-a11y-keys/iron-a11y-keys.html">
 
 <dom-module id="b7-carousel">
 	<template>
@@ -7,35 +8,59 @@
 				display: flex;
 				flex-direction: row;
 			}
-			::-webkit-scrollbar { 
-					display: none; 
+
+			/* Hide a bunch of stuff */
+			::-webkit-scrollbar, iron-a11y-keys {
+				display: none !important;
 			}
+
+			/* Hide Firefox scrollbars */
+			@-moz-document url-prefix(http://),url-prefix(https://) {
+				scrollbar {
+					-moz-appearance: none !important;
+				}
+			}
+
 			#track {
 				overflow-x: scroll;
+				overflow-y: hidden;
 				align-items: center;
-				justify-content: space-between;  
+				justify-content: space-between;
 				flex: 1 1 auto;
 				display: flex;
 				flex-direction: row;
+				-ms-overflow-style: none;
 			}
-			#content::slotted(*) {
-				max-height: 100%;
-				max-width: 100%;
-				opacity: 0;
-				transition: 1.5s cubic-bezier(0.075, 0.82, 0.165, 1) opacity;
-				flex: 0 1 auto;
+			#track #content::slotted(*) {
+				max-height: 100% !important;
+				max-width: 100% !important;
+				flex: 1 1 100%;
 			}
-			#content::slotted(.b7-visible) {
-				opacity: 1;
+
+			:host .chevron::slotted(*) {
+				cursor: pointer;
 			}
 		</style>
-		<slot name="prev" on-click="_prev">
+		
+		<iron-a11y-keys
+			target="[[_target]]"
+			keys="left pagedown down"
+			on-keys-pressed="_handlePrev">
+		</iron-a11y-keys>
+		
+		<iron-a11y-keys
+			target="[[_target]]"
+			keys="right pageup up"
+			on-keys-pressed="_handleNext">
+		</iron-a11y-keys>
+		
+		<slot name="prev" class="chevron" on-click="_prev">
 			<button>L</button>
 		</slot>
 		<div id="track">
 			<slot id="content"></slot>
 		</div>
-		<slot name="next" on-click="_next">
+		<slot name="next" class="chevron" on-click="_next">
 			<button>R</button>
 		</slot>
 	</template>
@@ -54,12 +79,17 @@
 			static get is() { return 'b7-carousel'; }
 			static get properties() {
 				return {
-					current: {
-						type: Number
-					},
 					trackAlignmentTimeOut: {
 						type: Number,
 						value: 0.1
+					},
+					_target: {
+						type: Object
+					},
+					tabindex: {
+						type: Number,
+						value: 0,
+						reflectToAttribute: true
 					}
 				};
 			}
@@ -67,81 +97,74 @@
 			constructor()
 			{
 				super();
-				this._scrollOptions = {
-					behavior: "smooth",
-					block: "center",
-					inline: "start"
-				};
 			}
 
 			connectedCallback()
 			{
 				super.connectedCallback();
-				this.current = 0;
+				
+				this._target = this;
 
 				// Intersection Observers
 				this._observer = new IntersectionObserver(
 					(entries) => {
 						entries.forEach(entry => {
-							if (entry.intersectionRatio > 0.5)
-								entry.target.classList.add('b7-visible');
-							else
-								entry.target.classList.remove('b7-visible');
+							if (entry.intersectionRatio > 0.6) entry.target.classList.add('b7-visible');
+							if (entry.intersectionRatio < 0.4) entry.target.classList.remove('b7-visible');
+
+							if (entry.intersectionRatio > 0.99) entry.target.classList.add('b7-completely-visible');
+							if (entry.intersectionRatio < 0.9) entry.target.classList.remove('b7-completely-visible');
 						})
 					},
 					{
 						root: this.$.track,
 						rootMargin: "0px",
-						threshold: [0.5]
+						threshold: [0.0, 0.4, 0.6, 1.0]
 					}
 				);
-				
-				this.$.content.assignedElements().forEach(element => this._observer.observe(element));
 
+				let assignedElements = (this.$.content.assignedElements) ? this.$.content.assignedElements() : this.children;
+				assignedElements.forEach(element => this._observer.observe(element));
+			}
 
-				// Setup isScrolling variable
-				let isScrolling;
-
-				// Listen for scroll events
-				this.$.track.addEventListener('scroll', event => {
-
-					// Clear our timeout throughout the scroll
-					clearTimeout( isScrolling );
-
-					// Set a timeout to run after scrolling ends
-					isScrolling = setTimeout( _ => {
-
-						// Run the callback
-						console.log( 'Scrolling has stopped.' );
-
-						let pivotElement = this.$.content.assignedElements().filter(element => element.classList.contains('b7-visible'))[0];
-
-						if (pivotElement) {
-							//this.$.track.scrollLeft = pivotElement.offsetLeft;
-							pivotElement.scrollIntoView(this._scrollOptions);
-						}
-
-					}, this.trackAlignmentTimeOut * 1000);
-
-				}, false);
+			_handleNext(event) {
+				event.preventDefault();
+				event.stopImmediatePropagation();
+				setTimeout( _ => this._next(), 0);
 			}
 
 			_next()
 			{
-				let pivotElement = this.$.content.assignedElements().filter(element => element.classList.contains('b7-visible'))[0];
+				let assignedElements = (this.$.content.assignedElements) ? this.$.content.assignedElements() : this.children;
+				let visibleElements = assignedElements.filter(element => element.classList.contains('b7-visible'));
+				let pivotElement = visibleElements[visibleElements.length - 1];
 
 				if (pivotElement.nextElementSibling) {
-					//this.$.track.scrollLeft = pivotElement.nextElementSibling.offsetLeft;
-					pivotElement.nextElementSibling.scrollIntoView(this._scrollOptions);
+					pivotElement.nextElementSibling.scrollIntoView({
+						behavior: "smooth",
+						block: "nearest",
+						inline: "end"
+					});
 				}
+			}
+
+			_handlePrev(event) {
+				event.preventDefault();
+				event.stopImmediatePropagation();
+				setTimeout( _ => this._prev(), 0);
 			}
 
 			_prev()
 			{
-				let pivotElement = this.$.content.assignedElements().filter(element => element.classList.contains('b7-visible'))[0];
+				let assignedElements = (this.$.content.assignedElements) ? this.$.content.assignedElements() : this.children;
+				let visibleElements = assignedElements.filter(element => element.classList.contains('b7-visible'));
+				let pivotElement = visibleElements[0];
 				if (pivotElement.previousElementSibling) {
-					//this.$.track.scrollLeft = pivotElement.previousElementSibling.offsetLeft;
-					pivotElement.previousElementSibling.scrollIntoView(this._scrollOptions);
+					pivotElement.previousElementSibling.scrollIntoView({
+						behavior: "smooth",
+						block: "nearest",
+						inline: "start"
+					});
 				}
 			}
 		}
