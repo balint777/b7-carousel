@@ -123,7 +123,7 @@
 					}
 				);
 
-				let assignedElements = (this.$.content.assignedElements) ? this.$.content.assignedElements() : this.children;
+				let assignedElements = (this.$.content.assignedElements) ? this.$.content.assignedElements() : Array.from(this.children);
 				assignedElements.forEach(element => this._observer.observe(element));
 			}
 
