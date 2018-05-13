@@ -108,7 +108,7 @@ export const B7Carousel = class extends PolymerElement {
 		);
 
 		let content = this.shadowRoot.querySelector('#content');
-		this._assignedElements = (content.assignedElements) ? content.assignedElements() : this.children;;
+		this._assignedElements = (content.assignedElements) ? content.assignedElements() : Array.from(this.children);
 		this._assignedElements.forEach(element => this._observer.observe(element));
 
 		this.shadowRoot.querySelector('slot[name=next]').addEventListener('click', _ => this._next());
