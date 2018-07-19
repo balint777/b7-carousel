@@ -5,7 +5,7 @@ export const B7Carousel = class extends PolymerElement {
 	static get template()
 	{
 		return html`
-			<style is="custom-style" include="iron-flex iron-flex-alignment">
+			<style is="custom-style">
 				:host {
 					display: flex;
 					flex-direction: row;

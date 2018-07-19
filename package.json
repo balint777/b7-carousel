@@ -14,5 +14,10 @@
     "@polymer/polymer": "^3.0.0-pre.1",
     "@webcomponents/webcomponentsjs": "^2.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "serve": "polymer serve",
+    "build": "polymer build",
+    "test": "polymer test"
+  }
 }
