@@ -72,6 +72,8 @@ export class B7Carousel extends LitElement {
 		
 		this._target = this;
 		let track = this.shadowRoot.getElementById('track');
+		let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
+		this._pivotElement = assignedElements[0];
 
 		// Intersection Observers
 		this._observer = new IntersectionObserver(
