@@ -72,9 +72,7 @@ export class B7Carousel extends LitElement {
 		
 		this._target = this;
 		let track = this.shadowRoot.getElementById('track');
-		let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
-		this._pivotElement = assignedElements[0];
-
+		
 		// Intersection Observers
 		this._observer = new IntersectionObserver(
 			(entries) => {
@@ -92,8 +90,9 @@ export class B7Carousel extends LitElement {
 				threshold: [0.0, 0.4, 0.6, 1.0]
 			}
 		);
-
+		
 		let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
+		this._pivotElement = assignedElements[0];
 		assignedElements.forEach(element => this._observer.observe(element));
 	}
 
@@ -177,10 +176,10 @@ export class B7Carousel extends LitElement {
 
 	_next()
 	{
-		let track = this.shadowRoot.getElementById('track');
-		let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
-		let visibleElements = assignedElements.filter(element => element.classList.contains('b7-visible'));
-		if (visibleElements.length > 0) this._pivotElement = visibleElements[visibleElements.length - 1];
+		// let track = this.shadowRoot.getElementById('track');
+		// let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
+		// let visibleElements = assignedElements.filter(element => element.classList.contains('b7-visible'));
+		// if (visibleElements.length > 0) this._pivotElement = visibleElements[visibleElements.length - 1];
 
 		if (this._pivotElement.nextElementSibling) {
 			this._pivotElement.nextElementSibling.scrollIntoView({
@@ -194,10 +193,10 @@ export class B7Carousel extends LitElement {
 
 	_prev()
 	{
-		let track = this.shadowRoot.getElementById('track');
-		let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
-		let visibleElements = assignedElements.filter(element => element.classList.contains('b7-visible'));
-		if (visibleElements.length > 0) this._pivotElement = visibleElements[0];
+		// let track = this.shadowRoot.getElementById('track');
+		// let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
+		// let visibleElements = assignedElements.filter(element => element.classList.contains('b7-visible'));
+		// if (visibleElements.length > 0) this._pivotElement = visibleElements[0];
 
 		if (this._pivotElement.previousElementSibling) {
 			this._pivotElement.previousElementSibling.scrollIntoView({
