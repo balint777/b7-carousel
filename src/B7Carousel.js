@@ -176,35 +176,38 @@ export class B7Carousel extends LitElement {
 
 	next()
 	{
-		// let track = this.shadowRoot.getElementById('track');
-		// let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
+		const track = this.shadowRoot.getElementById('track');
+		const assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
 		// let visibleElements = assignedElements.filter(element => element.classList.contains('b7-visible'));
 		// if (visibleElements.length > 0) this._pivotElement = visibleElements[visibleElements.length - 1];
+		const idx = assignedElements.indexOf(this._pivotElement);
+		const new_idx = idx >= (assignedElements.length - 1) ? 0 : idx + 1;
 
-		if (this._pivotElement.nextElementSibling) {
-			this._pivotElement.nextElementSibling.scrollIntoView({
-				behavior: "smooth",
-				block: "nearest",
-				inline: "center"
-			});
-			this._pivotElement = this._pivotElement.nextElementSibling;
-		}
+		let target = assignedElements[new_idx];
+		target.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest",
+			inline: "center"
+		});
+		this._pivotElement = target;
 	}
 
 	prev()
 	{
-		// let track = this.shadowRoot.getElementById('track');
-		// let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
+		const track = this.shadowRoot.getElementById('track');
+		const assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
 		// let visibleElements = assignedElements.filter(element => element.classList.contains('b7-visible'));
 		// if (visibleElements.length > 0) this._pivotElement = visibleElements[0];
+		const idx = assignedElements.indexOf(this._pivotElement);
+		const new_idx = idx <= 0 ? assignedElements.length - 1 : idx - 1;
 
-		if (this._pivotElement.previousElementSibling) {
-			this._pivotElement.previousElementSibling.scrollIntoView({
-				behavior: "smooth",
-				block: "nearest",
-				inline: 'center'
-			});
-			this._pivotElement = this._pivotElement.previousElementSibling;
-		}
+		let target = assignedElements[new_idx];
+
+		target.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest",
+			inline: 'center'
+		});
+		this._pivotElement = target;
 	}
 }
