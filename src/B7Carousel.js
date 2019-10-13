@@ -150,7 +150,7 @@ export class B7Carousel extends LitElement {
 				@keys-pressed=${ event => {
 					event.preventDefault();
 					event.stopImmediatePropagation();
-					setTimeout( _ => this._prev(), 0);
+					setTimeout( _ => this.prev(), 0);
 				}}>
 			</iron-a11y-keys>
 
@@ -160,21 +160,21 @@ export class B7Carousel extends LitElement {
 				@keys-pressed=${ event => {
 					event.preventDefault();
 					event.stopImmediatePropagation();
-					setTimeout( _ => this._next(), 0);
+					setTimeout( _ => this.next(), 0);
 				}}>
 			</iron-a11y-keys>
 
-			<slot name="prev" class="chevron" @click=${this._prev}>
+			<slot name="prev" class="chevron" @click=${this.prev}>
 				<button>&lt;</button>
 			</slot>
 			<slot id="track"></slot>
-			<slot name="next" class="chevron" @click=${this._next}>
+			<slot name="next" class="chevron" @click=${this.next}>
 				<button>&gt;</button>
 			</slot>
 		`;
 	}
 
-	_next()
+	next()
 	{
 		// let track = this.shadowRoot.getElementById('track');
 		// let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
@@ -191,7 +191,7 @@ export class B7Carousel extends LitElement {
 		}
 	}
 
-	_prev()
+	prev()
 	{
 		// let track = this.shadowRoot.getElementById('track');
 		// let assignedElements = (track.assignedElements) ? track.assignedElements() : this.children;
