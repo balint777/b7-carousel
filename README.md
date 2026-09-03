@@ -147,6 +147,10 @@ The element features
 ```
 
 # Development guide
+Use npm 8.3 or newer so the security overrides for the development tools are applied.
+Install dependencies with `npm ci`, then run `npm run test:dependencies` to check
+CSS processing and Socket.IO connections after dependency updates.
+
 ## Install the Polymer-CLI
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your element locally.
