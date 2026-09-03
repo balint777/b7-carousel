@@ -6,6 +6,29 @@
   "license": "MIT",
   "main": "index.js",
   "module": "index.js",
+  "engines": {
+    "npm": ">=8.3.0"
+  },
+  "overrides": {
+    "brace-expansion": "^1.1.18",
+    "js-yaml": "^3.15.1",
+    "postcss": "^8.5.18",
+    "autoprefixer": "^10.4.0",
+    "shell-quote": "^1.9.0",
+    "websocket-driver": "^0.7.5",
+    "form-data": "^2.5.6",
+    "engine.io": "^3.6.2",
+    "engine.io-client": "^3.5.6",
+    "socket.io": {
+      "socket.io-parser": {
+        ".": "~3.4.5",
+        "debug": "^4.4.3"
+      }
+    },
+    "socket.io-client": {
+      "socket.io-parser": "~3.3.6"
+    }
+  },
   "scripts": {
     "start": "es-dev-server --app-index demo/index.html --node-resolve --open --watch",
     "start:compatibility": "es-dev-server --app-index demo/index.html --compatibility all --node-resolve --open --watch",
@@ -16,6 +39,7 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
     "test": "karma start --coverage",
+    "test:dependencies": "node test/dependency-compatibility.cjs",
     "test:watch": "karma start --auto-watch=true --single-run=false",
     "test:update-snapshots": "karma start --update-snapshots",
     "test:prune-snapshots": "karma start --prune-snapshots",
